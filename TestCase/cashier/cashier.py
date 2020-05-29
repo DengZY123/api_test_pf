@@ -55,7 +55,7 @@ class Cashier:
                       "precision_type": 1,
                       "customer_id": 0,
                       "local_print": 0,
-                      "front_end_pay_id": "LS{}".format(int(time.time() * 1000)),
+                      "front_end_pay_id": "",
                       "last_update_timestamp": "1589370200307",
                       "erase_money": 0,
                       "erase_remark": "",
