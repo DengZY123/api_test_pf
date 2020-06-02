@@ -33,18 +33,16 @@ class Test_sales:
 
     def payment(self):
         # 货品现销结算
-        print(self.payment_body["sale_record_ids"])
-        print( self.payment_body["fund_account_id"])
         self.payment_body["front_end_pay_id"]="LS{}".format(int(time.time() * 1000))
         payment_url = "http://pftest.senguo.me/accountant/payment"
         payment_response = requests.post(payment_url, data=json.dumps(self.payment_body), headers=self.headers)
         payment_response_json = payment_response.json()
-        print(payment_response_json)
         if self.check_success(payment_response_json):
             print("结算--成功")
         else:
             print("结算--失败")
-        assert self.check_success(payment_response_json) == False
+            assert self.check_success(payment_response_json) == False
+
 
     @pytest.mark.usefixtures("test_sales")
     def test_payment_wiht_cash(self,test_sales):
@@ -58,7 +56,7 @@ class Test_sales:
     def test_payment_with_bank(self,test_sales):
         self.salers_record_ids = test_sales
         self.payment_body["sale_record_ids"] = self.salers_record_ids
-        self.payment_body["fund_account_id"] = "bayier"
+        self.payment_body["fund_account_id"] = "812"
         # sale_record_ids = salers_json['sales_record_ids']
         return
 
@@ -83,8 +81,7 @@ class Test_sales:
             return True
         else:
             return False
+
 if __name__ == "__main__":
-    pytest.main(['test_sales.py','-s',"--html=/Users/edz/Desktop/api_test_pf/reports/pytest.html",
-                  "--alluredir=Outputs/allure"])
-   # pytest.main(['test_sales.py', '-s'])
+    pytest.main(['test_sales.py','-s','--html=report.html'])
 
