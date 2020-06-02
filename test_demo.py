@@ -1,5 +1,6 @@
+import allure
 import pytest
-from  common.utils import se
+import allure_pytest
 
 @pytest.fixture
 def iniy():
@@ -7,7 +8,7 @@ def iniy():
     yield
     print("我是后置")
 
-
+@allure.story("test_01")
 @pytest.mark.usefixtures("iniy")
 class TestCase:
 
@@ -19,5 +20,8 @@ class TestCase:
 
 
 if __name__ == '__main__':
-    pytest.main(["test_demo.py",'-s'])
-    
+    pytest.main(['--allure_stories=test_01'])
+
+
+
+
